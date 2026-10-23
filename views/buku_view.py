@@ -1,4 +1,3 @@
-
 import customtkinter as ctk
 from tkinter import ttk
 
@@ -7,7 +6,7 @@ class BukuView(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Sistem Manajemen Perpustakaan")
-        self.geometry("800x450")
+        self.geometry("800x480")
 
         # Konfigurasi Grid Utama (1 Baris, 2 Kolom)
         self.grid_columnconfigure(0, weight=1)  # Kolom Kiri (Form)
@@ -34,7 +33,15 @@ class BukuView(ctk.CTk):
 
         # Tombol Aksi
         self.btn_simpan = ctk.CTkButton(self.frame_kiri, text="Simpan Data", fg_color="green")
-        self.btn_simpan.pack(pady=20, padx=15, fill="x")
+        self.btn_simpan.pack(pady=(15, 5), padx=15, fill="x")
+
+        # Tombol Perbarui Data (Update) - Warna Biru
+        self.btn_update = ctk.CTkButton(self.frame_kiri, text="Perbarui Data (Update)", fg_color="blue")
+        self.btn_update.pack(pady=5, padx=15, fill="x")
+
+        # Tombol Hapus Data (Delete) - Warna Merah
+        self.btn_delete = ctk.CTkButton(self.frame_kiri, text="Hapus Data (Delete)", fg_color="red")
+        self.btn_delete.pack(pady=(5, 15), padx=15, fill="x")
         
         # ==========================================
         # FRAME KANAN: TABEL DAFTAR BUKU
@@ -63,7 +70,6 @@ class BukuView(ctk.CTk):
         self.tabel.pack(fill="both", expand=True, padx=15, pady=10)
 
 
-# Blok eksekusi untuk menguji tampilan grafis
 if __name__ == "__main__":
     app = BukuView()
     app.mainloop()
