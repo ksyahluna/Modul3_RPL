@@ -14,6 +14,33 @@ class UserModel:
         # Mengubah plain text password menjadi hash SHA-256
         return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
+    def register_user(self, username, password, role):
+      if self.conn:
+        cursor = self.conn.cursor()
+
+        # Mengubah password menjadi hash SHA-256
+        password_hash = self.hash_password(password)
+
+        try:
+            query = """
+                INSERT INTO users (username, password, role)
+                VALUES (%s, %s, %s)
+            """
+
+            cursor.execute(query, (username, password_hash, role))
+            self.conn.commit()
+            return True
+
+        except Exception as e:
+            print("Gagal mendaftarkan pengguna:", e)
+            self.conn.rollback()
+            return False
+
+        finally:
+            cursor.close()
+
+      return False
+
     def autentikasi(self, username, password):
      if self.conn:
         cursor = self.conn.cursor(dictionary=True)
